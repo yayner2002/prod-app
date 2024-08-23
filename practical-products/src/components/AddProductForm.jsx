@@ -52,6 +52,7 @@ const AddProductForm = () => {
 
   const navigate = useNavigate();
   const submitHandler = async (e) => {
+    e.preventDefault();
     const product = {
       name,
       description,
@@ -61,8 +62,18 @@ const AddProductForm = () => {
       category,
       image,
     };
-    e.preventDefault();
-    // make an http post request to post the prodct 
+
+    // make an http post request to post the prodct
+    fetch("http://localhost:5000/api/products", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((product) => console.log(product));
+      navigate("/")
   };
   return (
     <form style={styles.form} onSubmit={submitHandler}>

@@ -6,6 +6,7 @@ import { syncUser } from "./models/userModel.js";
 import productRoutes from "./routes/productRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import bodyParser from "body-parser";
+import cors from "cors"
 dotenv.config();
 connectDB();
 syncProduct();
@@ -16,6 +17,7 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(bodyParser.json())
 // use the cors middleware 
+app.use(cors())
 
 app.use("/api/products", productRoutes)
 app.use("/api/users", userRoutes)
